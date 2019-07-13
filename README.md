@@ -1,3 +1,5 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.vadeen/neat-gui/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.vadeen/neat-gui)
+
 # NEAT GUI
 
 Graphic visualization library for the [NEAT](https://github.com/FelixStridsberg/neat) project.
