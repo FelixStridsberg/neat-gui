@@ -7,6 +7,33 @@
     <groupId>com.vadeen</groupId>
     <artifactId>neat-gui</artifactId>
     <version>0.2.0</version>
+    <packaging>jar</packaging>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>GUI implemenation for com.vadeen.neat.</description>
+    <url>https://github.com/FelixStridsberg/neat-gui</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Felix Stridsberg</name>
+            <email>felix.stridsberg@gmail.com</email>
+            <organization>Vadeen</organization>
+            <organizationUrl>https://www.vadeen.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/FelixStridsberg/neat-gui.git</connection>
+        <developerConnection>scm:git:ssh://github.com:FelixStridsberg/neat-gui.git</developerConnection>
+        <url>http://github.com/FelixStridsberg/neat-gui/tree/master</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -18,12 +45,6 @@
             <groupId>com.vadeen</groupId>
             <artifactId>neat</artifactId>
             <version>0.2-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>17.0.0</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
