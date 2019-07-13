@@ -1,4 +1,4 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.vadeen/neat-gui/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.vadeen/neat-gui)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.vadeen/neat-gui/badge.svg?)](https://maven-badges.herokuapp.com/maven-central/com.vadeen/neat-gui)
 
 # NEAT GUI
 
