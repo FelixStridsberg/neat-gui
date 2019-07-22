@@ -13,23 +13,28 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VisualPanel extends JPanel {
+/**
+ * Stats panel contains graphs and stats of the network.
+ */
+public class StatsPanel extends JPanel {
 
     private final FloatDataset fitnessData = new FloatDataset();
-    private final LineChart fitnessPanel = new LineChart(fitnessData);
 
     private final NeatStats stats = new NeatStats();
     private final SpeciesProportionChart speciesPanel = new SpeciesProportionChart();
     private final GenomePanel genomePanel = new GenomePanel(null);
     private final InfoPanel infoPanel = new InfoPanel();
-    private final JPanel top = new JPanel();
-    private final JPanel bottom = new JPanel();
 
-    public VisualPanel() {
+
+    public StatsPanel() {
+        LineChart fitnessPanel = new LineChart(fitnessData);
+
+        JPanel top = new JPanel();
         top.setLayout(new GridLayout(1, 2));
         top.add(infoPanel);
         top.add(genomePanel);
 
+        JPanel bottom = new JPanel();
         bottom.setLayout(new GridLayout(1, 2));
         bottom.add(fitnessPanel);
         bottom.add(speciesPanel);
@@ -50,5 +55,10 @@ public class VisualPanel extends JPanel {
         genomePanel.setGenome(g.getBestGenome());
         infoPanel.setGeneration(g);
         repaint();
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(400, getParent().getHeight());
     }
 }

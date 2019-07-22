@@ -7,6 +7,7 @@ import com.vadeen.neat.io.NeatIO;
 import com.vadeen.neat.io.json.generation.GenerationJson;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +24,7 @@ public class VisualPanelTest {
         ObjectMapper mapper = new ObjectMapper();
         List<GenerationJson> generations = mapper.readValue(file, new TypeReference<List<GenerationJson>>(){});
 
-        VisualPanel vp = new VisualPanel();
+        StatsPanel vp = new StatsPanel();
         GeneFactory geneFactory = new GeneFactory();
 
         new Thread(() -> {
@@ -37,9 +38,14 @@ public class VisualPanelTest {
             }
         }).start();
 
+        JPanel panel2 = new JPanel();
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.add(vp);
+        panel.add(panel2);
+
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setBounds(200, 200, 800, 600);
-        frame.add(vp);
+        frame.setBounds(200, 200, 350, 800);
+        frame.add(panel);
         frame.setVisible(true);
     }
 }
