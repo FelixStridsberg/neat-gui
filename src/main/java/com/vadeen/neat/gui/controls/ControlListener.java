@@ -10,10 +10,6 @@ public interface ControlListener {
 
     void onPause();
 
-    void onSave();
-
-    void onLoad();
-
     void onStartVisualization(Generation generation);
 
     void onStopVisualization();

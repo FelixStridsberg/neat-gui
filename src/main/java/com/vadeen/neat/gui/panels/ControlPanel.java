@@ -15,8 +15,6 @@ public class ControlPanel extends JPanel implements ActionListener {
     private static final String ACTION_EVOLVE = "evolve";
     private static final String ACTION_RUN = "run";
     private static final String ACTION_PAUSE = "pause";
-    private static final String ACTION_SAVE = "save";
-    private static final String ACTION_LOAD = "load";
     private static final String ACTION_START_VISUALIZE = "start_visualize";
     private static final String ACTION_STOP_VISUALIZE = "stop_visualize";
 
@@ -29,26 +27,8 @@ public class ControlPanel extends JPanel implements ActionListener {
 
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        this.add(createNEATPanel());
         this.add(createEvolvePanel());
         this.add(createVisualizePanel());
-    }
-
-    private JComponent createNEATPanel() {
-        JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createTitledBorder("Network"));
-
-        Button save = new Button("Save");
-        save.setActionCommand(ACTION_SAVE);
-        save.addActionListener(this);
-        panel.add(save);
-
-        Button load = new Button("Load");
-        load.setActionCommand(ACTION_LOAD);
-        load.addActionListener(this);
-        panel.add(load);
-
-        return panel;
     }
 
     private JComponent createEvolvePanel() {
@@ -108,12 +88,6 @@ public class ControlPanel extends JPanel implements ActionListener {
                 break;
             case ACTION_PAUSE:
                 controlListener.onPause();
-                break;
-            case ACTION_SAVE:
-                controlListener.onSave();
-                break;
-            case ACTION_LOAD:
-                controlListener.onLoad();
                 break;
             case ACTION_START_VISUALIZE:
                 controlListener.onStartVisualization(neat.getGenerationEvaluator().getGeneration());
