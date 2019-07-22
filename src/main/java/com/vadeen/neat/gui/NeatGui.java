@@ -2,6 +2,9 @@ package com.vadeen.neat.gui;
 
 import com.vadeen.neat.Neat;
 import com.vadeen.neat.generation.Generation;
+import com.vadeen.neat.gui.controls.ControlListener;
+import com.vadeen.neat.gui.panels.ControlPanel;
+import com.vadeen.neat.gui.panels.StatsPanel;
 import com.vadeen.neat.gui.visualization.VisualPanel;
 import com.vadeen.neat.gui.visualization.VisualizationRunner;
 import com.vadeen.neat.gui.visualization.Visualizer;

@@ -2,6 +2,7 @@ package com.vadeen.neat.gui;
 
 import com.vadeen.neat.Neat;
 import com.vadeen.neat.generation.Generation;
+import com.vadeen.neat.gui.panels.StatsPanel;
 
 public class AutoEvolver extends Thread {
     private final Neat neat;

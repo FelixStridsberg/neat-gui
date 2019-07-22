@@ -1,4 +1,4 @@
-package com.vadeen.neat.gui;
+package com.vadeen.neat.gui.controls;
 
 import com.vadeen.neat.generation.Generation;
 

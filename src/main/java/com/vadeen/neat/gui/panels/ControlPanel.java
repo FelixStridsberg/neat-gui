@@ -1,6 +1,7 @@
-package com.vadeen.neat.gui;
+package com.vadeen.neat.gui.panels;
 
 import com.vadeen.neat.Neat;
+import com.vadeen.neat.gui.controls.ControlListener;
 
 import javax.swing.*;
 import java.awt.*;

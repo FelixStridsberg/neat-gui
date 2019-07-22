@@ -1,4 +1,4 @@
-package com.vadeen.neat.gui;
+package com.vadeen.neat.gui.panels;
 
 import com.vadeen.neat.generation.Generation;
 import com.vadeen.neat.gui.charts.FloatDataset;

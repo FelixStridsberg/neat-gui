@@ -1,5 +1,6 @@
 package com.vadeen.neat.gui;
 
+import com.vadeen.neat.gui.panels.GenomePanel;
 import com.vadeen.neat.io.NeatIO;
 
 import javax.swing.*;

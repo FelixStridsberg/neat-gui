@@ -26,7 +26,6 @@ public abstract class VisualPanel extends JPanel {
             height = parentHeight;
         }
 
-        System.out.println(width + ": " + height);
         return new Dimension(width, height);
     }
 }

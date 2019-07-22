@@ -1,4 +1,4 @@
-package com.vadeen.neat.gui;
+package com.vadeen.neat.gui.panels;
 
 import com.vadeen.neat.gene.ConnectionGene;
 import com.vadeen.neat.gene.NodeGene;
