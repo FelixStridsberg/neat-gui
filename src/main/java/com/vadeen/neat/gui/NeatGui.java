@@ -4,8 +4,11 @@ import com.vadeen.neat.Neat;
 import com.vadeen.neat.generation.Generation;
 import com.vadeen.neat.gui.controls.ControlListener;
 import com.vadeen.neat.gui.controls.FileMenuListener;
+import com.vadeen.neat.gui.controls.NetworkMenuListener;
 import com.vadeen.neat.gui.menus.FileMenu;
+import com.vadeen.neat.gui.menus.NetworkMenu;
 import com.vadeen.neat.gui.panels.ControlPanel;
+import com.vadeen.neat.gui.panels.MutatorSettingsPanel;
 import com.vadeen.neat.gui.panels.StatsPanel;
 import com.vadeen.neat.gui.visualization.VisualPanel;
 import com.vadeen.neat.gui.visualization.VisualizationRunner;
@@ -21,9 +24,9 @@ import java.io.IOException;
  * NeatGui is a graphical user interface that takes the control of a Neat object and lets you push buttons and slide
  * sliders to manipulate to interactively evolve the network.
  */
-public class NeatGui implements ControlListener, FileMenuListener {
+public class NeatGui implements ControlListener, FileMenuListener, NetworkMenuListener {
 
-    private final JFrame window = new JFrame("NEAT gui");
+    private final JFrame mainFrame = new JFrame("NEAT gui");
 
     private final JPanel mainPanel = new JPanel(new BorderLayout());
     private final StatsPanel visualPanel = new StatsPanel();
@@ -51,7 +54,7 @@ public class NeatGui implements ControlListener, FileMenuListener {
     }
 
     public void run() {
-        window.setVisible(true);
+        mainFrame.setVisible(true);
     }
 
     @Override
@@ -97,10 +100,13 @@ public class NeatGui implements ControlListener, FileMenuListener {
     private void initMenus() {
         FileMenu fileMenu = new FileMenu();
         fileMenu.addListener(this);
-
         menuBar.add(fileMenu);
 
-        window.setJMenuBar(menuBar);
+        NetworkMenu networkMenu = new NetworkMenu();
+        networkMenu.addListener(this);
+        menuBar.add(networkMenu);
+
+        mainFrame.setJMenuBar(menuBar);
     }
 
     private void initPanels() {
@@ -115,9 +121,9 @@ public class NeatGui implements ControlListener, FileMenuListener {
         mainPanel.add(controlPanel, BorderLayout.PAGE_START);
 
 
-        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        window.setSize(1200, 680);
-        window.add(mainPanel);
+        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainFrame.setSize(1200, 680);
+        mainFrame.add(mainPanel);
     }
 
     @Override
@@ -125,7 +131,7 @@ public class NeatGui implements ControlListener, FileMenuListener {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Specify a file to save");
 
-        int userSelection = fileChooser.showSaveDialog(window);
+        int userSelection = fileChooser.showSaveDialog(mainFrame);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
 
@@ -142,7 +148,7 @@ public class NeatGui implements ControlListener, FileMenuListener {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Specify a file to save");
 
-        int userSelection = fileChooser.showOpenDialog(window);
+        int userSelection = fileChooser.showOpenDialog(mainFrame);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
 
@@ -158,5 +164,18 @@ public class NeatGui implements ControlListener, FileMenuListener {
     public void onExit() {
         // Just halt for now... Yolo!
         System.exit(0);
+    }
+
+    @Override
+    public void onMutationSettings() {
+        MutatorSettingsPanel panel = new MutatorSettingsPanel(neat);
+
+        JDialog d = new JDialog(mainFrame, true);
+        d.add(panel);
+        d.setSize(400, 500);
+
+        panel.setCloseListener(d::dispose);
+
+        d.setVisible(true);
     }
 }
