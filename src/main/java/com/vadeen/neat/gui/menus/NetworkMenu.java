@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 public class NetworkMenu extends JMenu implements ActionListener {
     private static final String ACTION_MUTATION_SETTINGS = "network_mutation_settings";
+    private static final String ACTION_GENERATION_SETTINGS = "network_generation_settings";
 
     private NetworkMenuListener listener = null;
 
@@ -17,6 +18,10 @@ public class NetworkMenu extends JMenu implements ActionListener {
         JMenuItem mutationSettings = new JMenuItem("Mutation settings...");
         mutationSettings.setActionCommand(ACTION_MUTATION_SETTINGS);
         add(mutationSettings);
+
+        JMenuItem generationSettings = new JMenuItem("Generation settings...");
+        generationSettings.setActionCommand(ACTION_GENERATION_SETTINGS);
+        add(generationSettings);
     }
 
     public void addListener(NetworkMenuListener listener) {
@@ -31,6 +36,9 @@ public class NetworkMenu extends JMenu implements ActionListener {
         switch (e.getActionCommand()) {
             case ACTION_MUTATION_SETTINGS:
                 listener.onMutationSettings();
+                break;
+            case ACTION_GENERATION_SETTINGS:
+                listener.onGenerationSettings();
                 break;
         }
     }

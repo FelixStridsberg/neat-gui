@@ -4,14 +4,16 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class FloatValueChooser extends JPanel implements DocumentListener {
+public class IntValueChooser extends JPanel implements DocumentListener {
 
-    private final FloatTextField field = new FloatTextField();
+    private final IntTextField field = new IntTextField();
 
-    private FloatListener listener;
+    private IntListener listener;
 
-    public FloatValueChooser(String label) {
+    public IntValueChooser(String label) {
         setLayout(new BorderLayout());
 
         setBorder(BorderFactory.createTitledBorder(label));
@@ -20,11 +22,11 @@ public class FloatValueChooser extends JPanel implements DocumentListener {
         add(field, BorderLayout.CENTER);
     }
 
-    public void setValue(float value) {
+    public void setValue(int value) {
         field.setValue(value);
     }
 
-    public void setListener(FloatListener listener) {
+    public void setListener(IntListener listener) {
         this.listener = listener;
     }
 

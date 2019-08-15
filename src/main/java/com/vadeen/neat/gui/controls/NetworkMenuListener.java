@@ -4,4 +4,5 @@ public interface NetworkMenuListener {
 
     void onMutationSettings();
 
+    void onGenerationSettings();
 }

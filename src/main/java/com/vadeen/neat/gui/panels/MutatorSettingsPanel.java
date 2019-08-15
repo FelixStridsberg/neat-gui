@@ -5,39 +5,23 @@ import com.vadeen.neat.genome.GenomeMutator;
 import com.vadeen.neat.gui.components.FloatValueChooser;
 import com.vadeen.neat.gui.components.PercentSlider;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MutatorSettingsPanel extends JPanel implements ActionListener {
-    private static String CLOSE_ACTION = "close";
+public class MutatorSettingsPanel extends SettingsDialog implements ActionListener {
 
     private final GenomeMutator mutator;
 
-    private CloseListener closeListener;
-
     public MutatorSettingsPanel(Neat neat) {
+        super();
         this.mutator = neat.getMutator();
-
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         initConnectionMutationProbabilitySlider();
         initNodeMutationProbabilitySlider();
         initWeightMutationProbabilitySlider();
         initWeightMutationRenewProbabilitySlider();
-        initWeightPerturbingFactor();
+        initWeightPerturbingFactorField();
 
         initButtons();
-    }
-
-    public void setCloseListener(CloseListener closeListener) {
-        this.closeListener = closeListener;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals(CLOSE_ACTION) && closeListener != null)
-            closeListener.close();
     }
 
     private void initConnectionMutationProbabilitySlider() {
@@ -68,17 +52,10 @@ public class MutatorSettingsPanel extends JPanel implements ActionListener {
         add(nodeMutationProb);
     }
 
-    private void initWeightPerturbingFactor() {
+    private void initWeightPerturbingFactorField() {
         FloatValueChooser perturbingFactor = new FloatValueChooser("Weight perturbing factor. (During weight mutation)");
         perturbingFactor.setValue(mutator.getWeightPerturbingFactor());
         perturbingFactor.setListener(mutator::setWeightPerturbingFactor);
         add(perturbingFactor);
-    }
-
-    private void initButtons() {
-        JButton doneButton = new JButton("Done");
-        doneButton.setActionCommand(CLOSE_ACTION);
-        doneButton.addActionListener(this);
-        add(doneButton);
     }
 }
