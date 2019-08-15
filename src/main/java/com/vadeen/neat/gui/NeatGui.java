@@ -4,15 +4,14 @@ import com.vadeen.neat.Neat;
 import com.vadeen.neat.generation.Generation;
 import com.vadeen.neat.gui.controls.ControlListener;
 import com.vadeen.neat.gui.controls.FileMenuListener;
-import com.vadeen.neat.gui.controls.NetworkMenuListener;
+import com.vadeen.neat.gui.controls.SettingsMenuListener;
 import com.vadeen.neat.gui.menus.FileMenu;
-import com.vadeen.neat.gui.menus.NetworkMenu;
+import com.vadeen.neat.gui.menus.SettingsMenu;
 import com.vadeen.neat.gui.panels.*;
 import com.vadeen.neat.gui.visualization.VisualPanel;
 import com.vadeen.neat.gui.visualization.VisualizationRunner;
 import com.vadeen.neat.gui.visualization.Visualizer;
 import com.vadeen.neat.io.NeatIO;
-import com.vadeen.neat.species.Species;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +22,7 @@ import java.io.IOException;
  * NeatGui is a graphical user interface that takes the control of a Neat object and lets you push buttons and slide
  * sliders to manipulate to interactively evolve the network.
  */
-public class NeatGui implements ControlListener, FileMenuListener, NetworkMenuListener {
+public class NeatGui implements ControlListener, FileMenuListener, SettingsMenuListener {
 
     private final JFrame mainFrame = new JFrame("NEAT gui");
 
@@ -101,9 +100,9 @@ public class NeatGui implements ControlListener, FileMenuListener, NetworkMenuLi
         fileMenu.addListener(this);
         menuBar.add(fileMenu);
 
-        NetworkMenu networkMenu = new NetworkMenu();
-        networkMenu.addListener(this);
-        menuBar.add(networkMenu);
+        SettingsMenu settingsMenu = new SettingsMenu();
+        settingsMenu.addListener(this);
+        menuBar.add(settingsMenu);
 
         mainFrame.setJMenuBar(menuBar);
     }

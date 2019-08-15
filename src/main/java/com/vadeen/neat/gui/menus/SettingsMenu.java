@@ -1,22 +1,22 @@
 package com.vadeen.neat.gui.menus;
 
-import com.vadeen.neat.gui.controls.NetworkMenuListener;
+import com.vadeen.neat.gui.controls.SettingsMenuListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 // TODO fix, clumsy.
-public class NetworkMenu extends JMenu implements ActionListener {
+public class SettingsMenu extends JMenu implements ActionListener {
     private static final String ACTION_MUTATION_SETTINGS = "network_mutation_settings";
     private static final String ACTION_GENERATION_SETTINGS = "network_generation_settings";
     private static final String ACTION_GENOME_SETTINGS = "network_genome_settings";
     private static final String ACTION_SPECIES_SETTINGS = "network_species_settings";
 
-    private NetworkMenuListener listener = null;
+    private SettingsMenuListener listener = null;
 
-    public NetworkMenu() {
-        super("Network");
+    public SettingsMenu() {
+        super("Settings");
 
         JMenuItem mutationSettings = new JMenuItem("Mutation settings...");
         mutationSettings.setActionCommand(ACTION_MUTATION_SETTINGS);
@@ -35,7 +35,7 @@ public class NetworkMenu extends JMenu implements ActionListener {
         add(speciesSettings);
     }
 
-    public void addListener(NetworkMenuListener listener) {
+    public void addListener(SettingsMenuListener listener) {
         this.listener = listener;
     }
 

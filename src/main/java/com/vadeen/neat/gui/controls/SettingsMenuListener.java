@@ -1,7 +1,7 @@
 package com.vadeen.neat.gui.controls;
 
 // TODO fix, clumsy.
-public interface NetworkMenuListener {
+public interface SettingsMenuListener {
 
     void onMutationSettings();
 
