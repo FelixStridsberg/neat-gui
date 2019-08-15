@@ -6,9 +6,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// TODO fix, clumsy.
 public class NetworkMenu extends JMenu implements ActionListener {
     private static final String ACTION_MUTATION_SETTINGS = "network_mutation_settings";
     private static final String ACTION_GENERATION_SETTINGS = "network_generation_settings";
+    private static final String ACTION_GENOME_SETTINGS = "network_genome_settings";
 
     private NetworkMenuListener listener = null;
 
@@ -22,6 +24,10 @@ public class NetworkMenu extends JMenu implements ActionListener {
         JMenuItem generationSettings = new JMenuItem("Generation settings...");
         generationSettings.setActionCommand(ACTION_GENERATION_SETTINGS);
         add(generationSettings);
+
+        JMenuItem genomeSettings = new JMenuItem("Genome settings...");
+        genomeSettings.setActionCommand(ACTION_GENOME_SETTINGS);
+        add(genomeSettings);
     }
 
     public void addListener(NetworkMenuListener listener) {
@@ -39,6 +45,9 @@ public class NetworkMenu extends JMenu implements ActionListener {
                 break;
             case ACTION_GENERATION_SETTINGS:
                 listener.onGenerationSettings();
+                break;
+            case ACTION_GENOME_SETTINGS:
+                listener.onGenomeSettings();
                 break;
         }
     }

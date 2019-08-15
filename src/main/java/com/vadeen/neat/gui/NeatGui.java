@@ -7,10 +7,7 @@ import com.vadeen.neat.gui.controls.FileMenuListener;
 import com.vadeen.neat.gui.controls.NetworkMenuListener;
 import com.vadeen.neat.gui.menus.FileMenu;
 import com.vadeen.neat.gui.menus.NetworkMenu;
-import com.vadeen.neat.gui.panels.ControlPanel;
-import com.vadeen.neat.gui.panels.GenerationSettingsPanel;
-import com.vadeen.neat.gui.panels.MutatorSettingsPanel;
-import com.vadeen.neat.gui.panels.StatsPanel;
+import com.vadeen.neat.gui.panels.*;
 import com.vadeen.neat.gui.visualization.VisualPanel;
 import com.vadeen.neat.gui.visualization.VisualizationRunner;
 import com.vadeen.neat.gui.visualization.Visualizer;
@@ -183,6 +180,19 @@ public class NeatGui implements ControlListener, FileMenuListener, NetworkMenuLi
     @Override
     public void onGenerationSettings() {
         GenerationSettingsPanel panel = new GenerationSettingsPanel(neat);
+
+        JDialog d = new JDialog(mainFrame, true);
+        d.add(panel);
+        d.setSize(400, 500);
+
+        panel.setCloseListener(d::dispose);
+
+        d.setVisible(true);
+    }
+
+    @Override
+    public void onGenomeSettings() {
+        GenomeSettingsPanel panel = new GenomeSettingsPanel(neat);
 
         JDialog d = new JDialog(mainFrame, true);
         d.add(panel);
