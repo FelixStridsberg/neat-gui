@@ -4,11 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.text.DecimalFormat;
 
 public class FloatValueChooser extends JPanel implements PropertyChangeListener {
 
-    JFormattedTextField field = new JFormattedTextField(DecimalFormat.getInstance());
+    private final FloatTextField field = new FloatTextField();
 
     private FloatListener listener;
 
@@ -22,7 +21,7 @@ public class FloatValueChooser extends JPanel implements PropertyChangeListener 
     }
 
     public void setValue(float value) {
-        field.setValue((double)value);
+        field.setValue(value);
     }
 
     public void setListener(FloatListener listener) {
@@ -31,12 +30,7 @@ public class FloatValueChooser extends JPanel implements PropertyChangeListener 
 
     @Override
     public void propertyChange(PropertyChangeEvent e) {
-        Double value = (Double)field.getValue();
-
-        if (value == null)
-            value = 0.0;
-
         if (listener != null)
-            listener.onChange(value.floatValue());
+            listener.onChange(field.getValue());
     }
 }
