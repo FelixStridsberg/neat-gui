@@ -12,6 +12,7 @@ import com.vadeen.neat.gui.visualization.VisualPanel;
 import com.vadeen.neat.gui.visualization.VisualizationRunner;
 import com.vadeen.neat.gui.visualization.Visualizer;
 import com.vadeen.neat.io.NeatIO;
+import com.vadeen.neat.species.Species;
 
 import javax.swing.*;
 import java.awt.*;
@@ -193,6 +194,19 @@ public class NeatGui implements ControlListener, FileMenuListener, NetworkMenuLi
     @Override
     public void onGenomeSettings() {
         GenomeSettingsPanel panel = new GenomeSettingsPanel(neat);
+
+        JDialog d = new JDialog(mainFrame, true);
+        d.add(panel);
+        d.setSize(400, 500);
+
+        panel.setCloseListener(d::dispose);
+
+        d.setVisible(true);
+    }
+
+    @Override
+    public void onSpeciesSettings() {
+        SpeciesSettingsPanel panel = new SpeciesSettingsPanel(neat);
 
         JDialog d = new JDialog(mainFrame, true);
         d.add(panel);

@@ -8,4 +8,6 @@ public interface NetworkMenuListener {
     void onGenerationSettings();
 
     void onGenomeSettings();
+
+    void onSpeciesSettings();
 }

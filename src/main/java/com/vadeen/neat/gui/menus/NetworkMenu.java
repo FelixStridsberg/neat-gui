@@ -11,6 +11,7 @@ public class NetworkMenu extends JMenu implements ActionListener {
     private static final String ACTION_MUTATION_SETTINGS = "network_mutation_settings";
     private static final String ACTION_GENERATION_SETTINGS = "network_generation_settings";
     private static final String ACTION_GENOME_SETTINGS = "network_genome_settings";
+    private static final String ACTION_SPECIES_SETTINGS = "network_species_settings";
 
     private NetworkMenuListener listener = null;
 
@@ -28,6 +29,10 @@ public class NetworkMenu extends JMenu implements ActionListener {
         JMenuItem genomeSettings = new JMenuItem("Genome settings...");
         genomeSettings.setActionCommand(ACTION_GENOME_SETTINGS);
         add(genomeSettings);
+
+        JMenuItem speciesSettings = new JMenuItem("Species settings...");
+        speciesSettings.setActionCommand(ACTION_SPECIES_SETTINGS);
+        add(speciesSettings);
     }
 
     public void addListener(NetworkMenuListener listener) {
@@ -48,6 +53,9 @@ public class NetworkMenu extends JMenu implements ActionListener {
                 break;
             case ACTION_GENOME_SETTINGS:
                 listener.onGenomeSettings();
+                break;
+            case ACTION_SPECIES_SETTINGS:
+                listener.onSpeciesSettings();
                 break;
         }
     }
