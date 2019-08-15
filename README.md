@@ -11,3 +11,15 @@ For example usage, see the [neat-race](https://github.com/FelixStridsberg/neat-r
 
 ## Screenshot
 ![screenshot](docs/screenshot.png)
+
+
+## Features
+
+- Change all NEAT settings in real time.
+- Step, start and stop evaluation at any time.
+- Start and stop simulation at any time.
+- Save and load network from file. (Buggy in the NEAT project still.)
+- Information about the current state of the network.
+- Graph with fitness over time.
+- Area chart with species proportions over time.
+- Each species has it's own color for the graphs and visualizations to use. (Buggy with reoccurring colors when many species.)
