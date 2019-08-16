@@ -1,6 +1,7 @@
 package com.vadeen.neat.gui.menus;
 
-import com.vadeen.neat.gui.listeners.FileMenuListener;
+import com.vadeen.neat.gui.controller.FileController;
+import com.vadeen.neat.gui.listeners.ExitListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,10 +12,13 @@ public class FileMenu extends JMenu implements ActionListener {
     private static final String ACTION_SAVE_NETWORK = "save_network";
     private static final String ACTION_EXIT = "exit";
 
-    private FileMenuListener listener = null;
+    private final FileController fileController;
 
-    public FileMenu() {
+    private ExitListener listener = null;
+
+    public FileMenu(FileController fileController) {
         super("File");
+        this.fileController = fileController;
 
         JMenuItem loadNetwork = new JMenuItem("Load network...");
         loadNetwork.setActionCommand(ACTION_LOAD_NETWORK);
@@ -31,7 +35,7 @@ public class FileMenu extends JMenu implements ActionListener {
         add(exit);
     }
 
-    public void addListener(FileMenuListener listener) {
+    public void addListener(ExitListener listener) {
         this.listener = listener;
     }
 
@@ -42,10 +46,10 @@ public class FileMenu extends JMenu implements ActionListener {
 
         switch (e.getActionCommand()) {
             case ACTION_LOAD_NETWORK:
-                listener.onLoadNetwork();
+                fileController.load();
                 break;
             case ACTION_SAVE_NETWORK:
-                listener.onSaveNetwork();
+                fileController.save();
                 break;
             case ACTION_EXIT:
                 listener.onExit();
