@@ -5,7 +5,7 @@ import com.vadeen.neat.generation.Generation;
 public interface Visualizer {
 
     /**
-     * @return Desidered frames per second.
+     * @return Desired frames per second.
      */
     int getFramesPerSecond();
 
