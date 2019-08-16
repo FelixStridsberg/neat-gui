@@ -1,5 +1,7 @@
-package com.vadeen.neat.gui.panels;
+package com.vadeen.neat.gui.listeners;
 
 public interface CloseListener {
+
     void close();
+
 }

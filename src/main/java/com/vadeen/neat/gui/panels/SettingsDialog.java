@@ -1,5 +1,7 @@
 package com.vadeen.neat.gui.panels;
 
+import com.vadeen.neat.gui.listeners.CloseListener;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
