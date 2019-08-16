@@ -4,10 +4,10 @@ import com.vadeen.neat.Neat;
 import com.vadeen.neat.generation.Generation;
 import com.vadeen.neat.gui.controls.ControlListener;
 import com.vadeen.neat.gui.controls.FileMenuListener;
-import com.vadeen.neat.gui.controls.SettingsMenuListener;
 import com.vadeen.neat.gui.menus.FileMenu;
 import com.vadeen.neat.gui.menus.SettingsMenu;
-import com.vadeen.neat.gui.panels.*;
+import com.vadeen.neat.gui.panels.ControlPanel;
+import com.vadeen.neat.gui.panels.StatsPanel;
 import com.vadeen.neat.gui.visualization.VisualPanel;
 import com.vadeen.neat.gui.visualization.VisualizationRunner;
 import com.vadeen.neat.gui.visualization.Visualizer;
@@ -22,7 +22,7 @@ import java.io.IOException;
  * NeatGui is a graphical user interface that takes the control of a Neat object and lets you push buttons and slide
  * sliders to manipulate to interactively evolve the network.
  */
-public class NeatGui implements ControlListener, FileMenuListener, SettingsMenuListener {
+public class NeatGui implements ControlListener, FileMenuListener {
 
     private final JFrame mainFrame = new JFrame("NEAT gui");
 
@@ -32,6 +32,7 @@ public class NeatGui implements ControlListener, FileMenuListener, SettingsMenuL
     private final ControlPanel controlPanel;
 
     private final JMenuBar menuBar = new JMenuBar();
+    private final SettingsMenu settingsMenu;
 
     private final Visualizer visualizer;
     private final VisualizationRunner visualizationRunner;
@@ -44,6 +45,7 @@ public class NeatGui implements ControlListener, FileMenuListener, SettingsMenuL
         this.neat = neat;
         this.controlPanel = new ControlPanel(neat);
         this.visualizer = visualizer;
+        this.settingsMenu = new SettingsMenu(neat);
         this.visualizationRunner = new VisualizationRunner(visualizer, vp);
         this.visualizationPanel = vp;
 
@@ -99,9 +101,6 @@ public class NeatGui implements ControlListener, FileMenuListener, SettingsMenuL
         FileMenu fileMenu = new FileMenu();
         fileMenu.addListener(this);
         menuBar.add(fileMenu);
-
-        SettingsMenu settingsMenu = new SettingsMenu();
-        settingsMenu.addListener(this);
         menuBar.add(settingsMenu);
 
         mainFrame.setJMenuBar(menuBar);
@@ -153,7 +152,9 @@ public class NeatGui implements ControlListener, FileMenuListener, SettingsMenuL
             try {
                 this.neat = NeatIO.readNeat(file, neat.getGenerationEvaluator().getEvaluator());
                 controlPanel.setNeat(neat);
+                settingsMenu.setNeat(neat);
                 visualPanel.addGeneration(neat.getGeneration());
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -164,34 +165,5 @@ public class NeatGui implements ControlListener, FileMenuListener, SettingsMenuL
     public void onExit() {
         // Just halt for now... Yolo!
         System.exit(0);
-    }
-
-    @Override
-    public void onMutationSettings() {
-        openDialog(new MutatorSettingsPanel(neat));
-    }
-
-    @Override
-    public void onGenerationSettings() {
-        openDialog(new GenerationSettingsPanel(neat));
-    }
-
-    @Override
-    public void onGenomeSettings() {
-        openDialog(new GenomeSettingsPanel(neat));
-    }
-
-    @Override
-    public void onSpeciesSettings() {
-        openDialog(new SpeciesSettingsPanel(neat));
-    }
-
-    private void openDialog(SettingsDialog dialog) {
-        JDialog d = new JDialog(mainFrame, true);
-        dialog.setCloseListener(d::dispose);
-
-        d.add(dialog);
-        d.setSize(400, 500);
-        d.setVisible(true);
     }
 }

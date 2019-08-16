@@ -1,6 +1,7 @@
 package com.vadeen.neat.gui.menus;
 
 import com.vadeen.neat.gui.controls.FileMenuListener;
+import com.vadeen.neat.gui.panels.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -51,6 +52,7 @@ public class FileMenu extends JMenu implements ActionListener {
                 listener.onExit();
                 break;
         }
+
     }
 
     @Override

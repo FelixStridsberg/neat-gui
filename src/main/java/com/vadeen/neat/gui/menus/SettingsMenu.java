@@ -1,22 +1,23 @@
 package com.vadeen.neat.gui.menus;
 
-import com.vadeen.neat.gui.controls.SettingsMenuListener;
+import com.vadeen.neat.Neat;
+import com.vadeen.neat.gui.panels.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// TODO fix, clumsy.
 public class SettingsMenu extends JMenu implements ActionListener {
     private static final String ACTION_MUTATION_SETTINGS = "network_mutation_settings";
     private static final String ACTION_GENERATION_SETTINGS = "network_generation_settings";
     private static final String ACTION_GENOME_SETTINGS = "network_genome_settings";
     private static final String ACTION_SPECIES_SETTINGS = "network_species_settings";
 
-    private SettingsMenuListener listener = null;
+    private Neat neat;
 
-    public SettingsMenu() {
+    public SettingsMenu(Neat neat) {
         super("Settings");
+        this.neat = neat;
 
         JMenuItem mutationSettings = new JMenuItem("Mutation settings...");
         mutationSettings.setActionCommand(ACTION_MUTATION_SETTINGS);
@@ -35,27 +36,24 @@ public class SettingsMenu extends JMenu implements ActionListener {
         add(speciesSettings);
     }
 
-    public void addListener(SettingsMenuListener listener) {
-        this.listener = listener;
+    public void setNeat(Neat neat) {
+        this.neat = neat;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (listener == null)
-            return;
-
         switch (e.getActionCommand()) {
             case ACTION_MUTATION_SETTINGS:
-                listener.onMutationSettings();
+                openDialog(new MutatorSettingsPanel(neat));
                 break;
             case ACTION_GENERATION_SETTINGS:
-                listener.onGenerationSettings();
+                openDialog(new GenerationSettingsPanel(neat));
                 break;
             case ACTION_GENOME_SETTINGS:
-                listener.onGenomeSettings();
+                openDialog(new GenomeSettingsPanel(neat));
                 break;
             case ACTION_SPECIES_SETTINGS:
-                listener.onSpeciesSettings();
+                openDialog(new SpeciesSettingsPanel(neat));
                 break;
         }
     }
@@ -64,5 +62,17 @@ public class SettingsMenu extends JMenu implements ActionListener {
     public JMenuItem add(JMenuItem menuItem) {
         menuItem.addActionListener(this);
         return super.add(menuItem);
+    }
+
+
+    private void openDialog(SettingsDialog dialog) {
+        JFrame mainFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+        JDialog d = new JDialog(mainFrame, true);
+        dialog.setCloseListener(d::dispose);
+
+        d.add(dialog);
+        d.setSize(400, 500);
+        d.setVisible(true);
     }
 }
