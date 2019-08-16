@@ -1,9 +1,8 @@
 package com.vadeen.neat.gui;
 
 import com.vadeen.neat.Neat;
-import com.vadeen.neat.generation.Generation;
 import com.vadeen.neat.gui.controller.EvolutionController;
-import com.vadeen.neat.gui.listeners.ControlListener;
+import com.vadeen.neat.gui.controller.VisualizeController;
 import com.vadeen.neat.gui.listeners.EvolveListener;
 import com.vadeen.neat.gui.listeners.FileMenuListener;
 import com.vadeen.neat.gui.menus.FileMenu;
@@ -11,7 +10,6 @@ import com.vadeen.neat.gui.menus.SettingsMenu;
 import com.vadeen.neat.gui.panels.ControlPanel;
 import com.vadeen.neat.gui.panels.StatsPanel;
 import com.vadeen.neat.gui.visualization.VisualPanel;
-import com.vadeen.neat.gui.visualization.VisualizationRunner;
 import com.vadeen.neat.gui.visualization.Visualizer;
 import com.vadeen.neat.io.NeatIO;
 
@@ -24,56 +22,36 @@ import java.io.IOException;
  * NeatGui is a graphical user interface that takes the control of a Neat object and lets you push buttons and slide
  * sliders to manipulate to interactively evolve the network.
  */
-public class NeatGui implements ControlListener, FileMenuListener, EvolveListener {
+public class NeatGui implements FileMenuListener, EvolveListener {
 
     private final JFrame mainFrame = new JFrame("NEAT gui");
 
     private final JPanel mainPanel = new JPanel(new BorderLayout());
     private final StatsPanel visualPanel = new StatsPanel();
-    private final VisualPanel visualizationPanel;
 
     private final JMenuBar menuBar = new JMenuBar();
     private final SettingsMenu settingsMenu;
 
     private final EvolutionController evolutionController;
-
-    private final Visualizer visualizer;
-    private final VisualizationRunner visualizationRunner;
+    private final VisualizeController visualizeController;
 
     private Neat neat;
 
     public NeatGui(Neat neat, Visualizer visualizer, VisualPanel vp) {
         this.neat = neat;
-        this.visualizer = visualizer;
         this.settingsMenu = new SettingsMenu(neat);
-        this.visualizationRunner = new VisualizationRunner(visualizer, vp);
-        this.visualizationPanel = vp;
 
         this.evolutionController = new EvolutionController(neat);
         this.evolutionController.setEvolveListener(this);
 
+        this.visualizeController = new VisualizeController(visualizer, vp, neat);
+
         initMenus();
-        initPanels();
+        initPanels(vp);
     }
 
     public void run() {
         mainFrame.setVisible(true);
-    }
-
-    @Override
-    public void onStartVisualization(Generation generation) {
-        if (visualizer == null) {
-            System.err.println("No visualizer defined.");
-            return;
-        }
-
-        this.visualizationRunner.run(generation);
-    }
-
-    @Override
-    public void onStopVisualization() {
-        if (visualizationRunner != null)
-            visualizationRunner.stop();
     }
 
     private void initMenus() {
@@ -85,12 +63,12 @@ public class NeatGui implements ControlListener, FileMenuListener, EvolveListene
         mainFrame.setJMenuBar(menuBar);
     }
 
-    private void initPanels() {
+    private void initPanels(VisualPanel vp) {
         JPanel wrapper = new JPanel();
         wrapper.setLayout(new GridBagLayout());
-        wrapper.add(visualizationPanel);
+        wrapper.add(vp);
 
-        ControlPanel controlPanel = new ControlPanel(evolutionController);
+        ControlPanel controlPanel = new ControlPanel(evolutionController, visualizeController);
 
         mainPanel.add(wrapper, BorderLayout.CENTER);
         mainPanel.add(visualPanel, BorderLayout.LINE_END);
@@ -131,9 +109,10 @@ public class NeatGui implements ControlListener, FileMenuListener, EvolveListene
             try {
                 this.neat = NeatIO.readNeat(file, neat.getGenerationEvaluator().getEvaluator());
                 settingsMenu.setNeat(neat);
-                visualPanel.addGeneration(neat.getGeneration());
-
                 evolutionController.setNeat(neat);
+                visualizeController.setNeat(neat);
+
+                visualPanel.addGeneration(neat.getGeneration());
 
             } catch (IOException e) {
                 e.printStackTrace();

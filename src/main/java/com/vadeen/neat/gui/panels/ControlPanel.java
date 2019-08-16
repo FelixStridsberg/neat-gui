@@ -1,6 +1,7 @@
 package com.vadeen.neat.gui.panels;
 
 import com.vadeen.neat.gui.controller.EvolutionController;
+import com.vadeen.neat.gui.controller.VisualizeController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +17,14 @@ public class ControlPanel extends JPanel implements ActionListener {
     private static final String ACTION_PAUSE = "stop";
     private static final String ACTION_START_VISUALIZE = "start_visualize";
     private static final String ACTION_STOP_VISUALIZE = "stop_visualize";
+
     private final EvolutionController evolutionController;
+    private final VisualizeController visualizeController;
 
 
-    public ControlPanel(EvolutionController evolutionController) {
+    public ControlPanel(EvolutionController evolutionController, VisualizeController visualizeController) {
         this.evolutionController = evolutionController;
+        this.visualizeController = visualizeController;
 
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -81,12 +85,10 @@ public class ControlPanel extends JPanel implements ActionListener {
                 evolutionController.stop();
                 break;
             case ACTION_START_VISUALIZE:
-                // visualizeController.start();
-//                controlListener.onStartVisualization(neat.getGenerationEvaluator().getGeneration());
+                visualizeController.start();
                 break;
             case ACTION_STOP_VISUALIZE:
-                // visualizeController.stop();
-//                controlListener.onStopVisualization();
+                visualizeController.stop();
                 break;
         }
     }
