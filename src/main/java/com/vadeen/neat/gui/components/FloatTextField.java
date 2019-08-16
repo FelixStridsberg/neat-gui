@@ -33,8 +33,12 @@ public class FloatTextField extends JTextField {
     }
 
     public float getValue() {
+        String text = getText();
+        if (text.length() == 0)
+            return 0;
+
         try {
-            return Float.parseFloat(getText());
+            return Float.parseFloat(text);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }

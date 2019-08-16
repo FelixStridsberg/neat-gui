@@ -24,8 +24,12 @@ public class IntTextField extends JTextField {
     }
 
     public int getValue() {
+        String text = getText();
+        if (text.length() == 0)
+            return 0;
+
         try {
-            return Integer.parseInt(getText());
+            return Integer.parseInt(text);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
