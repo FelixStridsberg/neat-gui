@@ -2,6 +2,7 @@ package com.vadeen.neat.gui;
 
 import com.vadeen.neat.Neat;
 import com.vadeen.neat.gui.controller.EvolutionController;
+import com.vadeen.neat.gui.controller.SettingsController;
 import com.vadeen.neat.gui.controller.VisualizeController;
 import com.vadeen.neat.gui.listeners.EvolveListener;
 import com.vadeen.neat.gui.listeners.FileMenuListener;
@@ -30,8 +31,8 @@ public class NeatGui implements FileMenuListener, EvolveListener {
     private final StatsPanel visualPanel = new StatsPanel();
 
     private final JMenuBar menuBar = new JMenuBar();
-    private final SettingsMenu settingsMenu;
 
+    private final SettingsController settingsController;
     private final EvolutionController evolutionController;
     private final VisualizeController visualizeController;
 
@@ -39,12 +40,11 @@ public class NeatGui implements FileMenuListener, EvolveListener {
 
     public NeatGui(Neat neat, Visualizer visualizer, VisualPanel vp) {
         this.neat = neat;
-        this.settingsMenu = new SettingsMenu(neat);
 
+        this.settingsController = new SettingsController(mainFrame, neat);
+        this.visualizeController = new VisualizeController(visualizer, vp, neat);
         this.evolutionController = new EvolutionController(neat);
         this.evolutionController.setEvolveListener(this);
-
-        this.visualizeController = new VisualizeController(visualizer, vp, neat);
 
         initMenus();
         initPanels(vp);
@@ -55,8 +55,11 @@ public class NeatGui implements FileMenuListener, EvolveListener {
     }
 
     private void initMenus() {
+        SettingsMenu settingsMenu = new SettingsMenu(settingsController);
+
         FileMenu fileMenu = new FileMenu();
         fileMenu.addListener(this);
+
         menuBar.add(fileMenu);
         menuBar.add(settingsMenu);
 
@@ -108,7 +111,7 @@ public class NeatGui implements FileMenuListener, EvolveListener {
 
             try {
                 this.neat = NeatIO.readNeat(file, neat.getGenerationEvaluator().getEvaluator());
-                settingsMenu.setNeat(neat);
+                settingsController.setNeat(neat);
                 evolutionController.setNeat(neat);
                 visualizeController.setNeat(neat);
 
