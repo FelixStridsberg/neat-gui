@@ -1,4 +1,4 @@
-package com.vadeen.neat.gui.controls;
+package com.vadeen.neat.gui.listeners;
 
 public interface FileMenuListener {
 

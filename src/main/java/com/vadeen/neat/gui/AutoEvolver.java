@@ -1,25 +1,29 @@
 package com.vadeen.neat.gui;
 
 import com.vadeen.neat.Neat;
-import com.vadeen.neat.generation.Generation;
-import com.vadeen.neat.gui.panels.StatsPanel;
+import com.vadeen.neat.gui.listeners.EvolveListener;
 
 public class AutoEvolver extends Thread {
     private final Neat neat;
-    private final StatsPanel visualPanel;
+    private EvolveListener evolveListener;
 
     private volatile boolean running = true;
 
-    public AutoEvolver(Neat neat, StatsPanel visualPanel) {
+    public AutoEvolver(Neat neat) {
         this.neat = neat;
-        this.visualPanel = visualPanel;
+    }
+
+    public void setEvolveListener(EvolveListener evolveListener) {
+        this.evolveListener = evolveListener;
     }
 
     @Override
     public void run() {
         while (running) {
-            Generation g = neat.evolve();
-            visualPanel.addGeneration(g);
+            neat.evolve();
+
+            if (evolveListener != null)
+                evolveListener.onEvolve();
         }
     }
 

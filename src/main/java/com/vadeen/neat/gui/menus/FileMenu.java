@@ -1,7 +1,6 @@
 package com.vadeen.neat.gui.menus;
 
-import com.vadeen.neat.gui.controls.FileMenuListener;
-import com.vadeen.neat.gui.panels.*;
+import com.vadeen.neat.gui.listeners.FileMenuListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

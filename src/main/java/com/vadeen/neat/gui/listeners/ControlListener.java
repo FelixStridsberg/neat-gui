@@ -1,14 +1,8 @@
-package com.vadeen.neat.gui.controls;
+package com.vadeen.neat.gui.listeners;
 
 import com.vadeen.neat.generation.Generation;
 
 public interface ControlListener {
-
-    void onEvolve();
-
-    void onRun();
-
-    void onPause();
 
     void onStartVisualization(Generation generation);
 

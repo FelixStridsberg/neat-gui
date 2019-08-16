@@ -1,7 +1,6 @@
 package com.vadeen.neat.gui.panels;
 
-import com.vadeen.neat.Neat;
-import com.vadeen.neat.gui.controls.ControlListener;
+import com.vadeen.neat.gui.controller.EvolutionController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,25 +13,19 @@ import java.awt.event.ActionListener;
 public class ControlPanel extends JPanel implements ActionListener {
     private static final String ACTION_EVOLVE = "evolve";
     private static final String ACTION_RUN = "run";
-    private static final String ACTION_PAUSE = "pause";
+    private static final String ACTION_PAUSE = "stop";
     private static final String ACTION_START_VISUALIZE = "start_visualize";
     private static final String ACTION_STOP_VISUALIZE = "stop_visualize";
+    private final EvolutionController evolutionController;
 
-    private Neat neat;
 
-    private ControlListener controlListener = null;
-
-    public ControlPanel(Neat neat) {
-        this.neat = neat;
+    public ControlPanel(EvolutionController evolutionController) {
+        this.evolutionController = evolutionController;
 
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         this.add(createEvolvePanel());
         this.add(createVisualizePanel());
-    }
-
-    public void setNeat(Neat neat) {
-        this.neat = neat;
     }
 
     private JComponent createEvolvePanel() {
@@ -74,30 +67,26 @@ public class ControlPanel extends JPanel implements ActionListener {
         return panel;
     }
 
-    public void addControlListener(ControlListener controlListener) {
-        this.controlListener = controlListener;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (controlListener == null)
-            return;
-
         switch (e.getActionCommand()) {
             case ACTION_EVOLVE:
-                controlListener.onEvolve();
+                evolutionController.evolve();
                 break;
             case ACTION_RUN:
-                controlListener.onRun();
+                evolutionController.run();
                 break;
             case ACTION_PAUSE:
-                controlListener.onPause();
+                evolutionController.stop();
                 break;
             case ACTION_START_VISUALIZE:
-                controlListener.onStartVisualization(neat.getGenerationEvaluator().getGeneration());
+                // visualizeController.start();
+//                controlListener.onStartVisualization(neat.getGenerationEvaluator().getGeneration());
                 break;
             case ACTION_STOP_VISUALIZE:
-                controlListener.onStopVisualization();
+                // visualizeController.stop();
+//                controlListener.onStopVisualization();
                 break;
         }
     }

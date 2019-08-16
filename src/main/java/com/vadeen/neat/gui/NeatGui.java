@@ -2,8 +2,10 @@ package com.vadeen.neat.gui;
 
 import com.vadeen.neat.Neat;
 import com.vadeen.neat.generation.Generation;
-import com.vadeen.neat.gui.controls.ControlListener;
-import com.vadeen.neat.gui.controls.FileMenuListener;
+import com.vadeen.neat.gui.controller.EvolutionController;
+import com.vadeen.neat.gui.listeners.ControlListener;
+import com.vadeen.neat.gui.listeners.EvolveListener;
+import com.vadeen.neat.gui.listeners.FileMenuListener;
 import com.vadeen.neat.gui.menus.FileMenu;
 import com.vadeen.neat.gui.menus.SettingsMenu;
 import com.vadeen.neat.gui.panels.ControlPanel;
@@ -22,32 +24,33 @@ import java.io.IOException;
  * NeatGui is a graphical user interface that takes the control of a Neat object and lets you push buttons and slide
  * sliders to manipulate to interactively evolve the network.
  */
-public class NeatGui implements ControlListener, FileMenuListener {
+public class NeatGui implements ControlListener, FileMenuListener, EvolveListener {
 
     private final JFrame mainFrame = new JFrame("NEAT gui");
 
     private final JPanel mainPanel = new JPanel(new BorderLayout());
     private final StatsPanel visualPanel = new StatsPanel();
     private final VisualPanel visualizationPanel;
-    private final ControlPanel controlPanel;
 
     private final JMenuBar menuBar = new JMenuBar();
     private final SettingsMenu settingsMenu;
+
+    private final EvolutionController evolutionController;
 
     private final Visualizer visualizer;
     private final VisualizationRunner visualizationRunner;
 
     private Neat neat;
 
-    private AutoEvolver autoEvolver;
-
     public NeatGui(Neat neat, Visualizer visualizer, VisualPanel vp) {
         this.neat = neat;
-        this.controlPanel = new ControlPanel(neat);
         this.visualizer = visualizer;
         this.settingsMenu = new SettingsMenu(neat);
         this.visualizationRunner = new VisualizationRunner(visualizer, vp);
         this.visualizationPanel = vp;
+
+        this.evolutionController = new EvolutionController(neat);
+        this.evolutionController.setEvolveListener(this);
 
         initMenus();
         initPanels();
@@ -55,30 +58,6 @@ public class NeatGui implements ControlListener, FileMenuListener {
 
     public void run() {
         mainFrame.setVisible(true);
-    }
-
-    @Override
-    public void onEvolve() {
-        Generation gen = neat.evolve();
-        visualPanel.addGeneration(gen);
-    }
-
-    @Override
-    public void onRun() {
-        autoEvolver = new AutoEvolver(neat, visualPanel);
-        autoEvolver.start();
-    }
-
-    @Override
-    public void onPause() {
-        autoEvolver.halt();
-        try {
-            autoEvolver.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        autoEvolver = null;
     }
 
     @Override
@@ -107,11 +86,11 @@ public class NeatGui implements ControlListener, FileMenuListener {
     }
 
     private void initPanels() {
-        controlPanel.addControlListener(this);
-
         JPanel wrapper = new JPanel();
         wrapper.setLayout(new GridBagLayout());
         wrapper.add(visualizationPanel);
+
+        ControlPanel controlPanel = new ControlPanel(evolutionController);
 
         mainPanel.add(wrapper, BorderLayout.CENTER);
         mainPanel.add(visualPanel, BorderLayout.LINE_END);
@@ -151,9 +130,10 @@ public class NeatGui implements ControlListener, FileMenuListener {
 
             try {
                 this.neat = NeatIO.readNeat(file, neat.getGenerationEvaluator().getEvaluator());
-                controlPanel.setNeat(neat);
                 settingsMenu.setNeat(neat);
                 visualPanel.addGeneration(neat.getGeneration());
+
+                evolutionController.setNeat(neat);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -165,5 +145,10 @@ public class NeatGui implements ControlListener, FileMenuListener {
     public void onExit() {
         // Just halt for now... Yolo!
         System.exit(0);
+    }
+
+    @Override
+    public void onEvolve() {
+        visualPanel.addGeneration(neat.getGeneration());
     }
 }
