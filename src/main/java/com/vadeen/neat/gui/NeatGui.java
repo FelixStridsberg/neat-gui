@@ -168,53 +168,30 @@ public class NeatGui implements ControlListener, FileMenuListener, SettingsMenuL
 
     @Override
     public void onMutationSettings() {
-        MutatorSettingsPanel panel = new MutatorSettingsPanel(neat);
-
-        JDialog d = new JDialog(mainFrame, true);
-        d.add(panel);
-        d.setSize(400, 500);
-
-        panel.setCloseListener(d::dispose);
-
-        d.setVisible(true);
+        openDialog(new MutatorSettingsPanel(neat));
     }
 
     @Override
     public void onGenerationSettings() {
-        GenerationSettingsPanel panel = new GenerationSettingsPanel(neat);
-
-        JDialog d = new JDialog(mainFrame, true);
-        d.add(panel);
-        d.setSize(400, 500);
-
-        panel.setCloseListener(d::dispose);
-
-        d.setVisible(true);
+        openDialog(new GenerationSettingsPanel(neat));
     }
 
     @Override
     public void onGenomeSettings() {
-        GenomeSettingsPanel panel = new GenomeSettingsPanel(neat);
-
-        JDialog d = new JDialog(mainFrame, true);
-        d.add(panel);
-        d.setSize(400, 500);
-
-        panel.setCloseListener(d::dispose);
-
-        d.setVisible(true);
+        openDialog(new GenomeSettingsPanel(neat));
     }
 
     @Override
     public void onSpeciesSettings() {
-        SpeciesSettingsPanel panel = new SpeciesSettingsPanel(neat);
+        openDialog(new SpeciesSettingsPanel(neat));
+    }
 
+    private void openDialog(SettingsDialog dialog) {
         JDialog d = new JDialog(mainFrame, true);
-        d.add(panel);
+        dialog.setCloseListener(d::dispose);
+
+        d.add(dialog);
         d.setSize(400, 500);
-
-        panel.setCloseListener(d::dispose);
-
         d.setVisible(true);
     }
 }
