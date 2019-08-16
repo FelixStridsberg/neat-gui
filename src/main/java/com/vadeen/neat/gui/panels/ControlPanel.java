@@ -18,7 +18,7 @@ public class ControlPanel extends JPanel implements ActionListener {
     private static final String ACTION_START_VISUALIZE = "start_visualize";
     private static final String ACTION_STOP_VISUALIZE = "stop_visualize";
 
-    private final Neat neat;
+    private Neat neat;
 
     private ControlListener controlListener = null;
 
@@ -29,6 +29,10 @@ public class ControlPanel extends JPanel implements ActionListener {
 
         this.add(createEvolvePanel());
         this.add(createVisualizePanel());
+    }
+
+    public void setNeat(Neat neat) {
+        this.neat = neat;
     }
 
     private JComponent createEvolvePanel() {

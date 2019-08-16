@@ -152,6 +152,8 @@ public class NeatGui implements ControlListener, FileMenuListener, SettingsMenuL
 
             try {
                 this.neat = NeatIO.readNeat(file, neat.getGenerationEvaluator().getEvaluator());
+                controlPanel.setNeat(neat);
+                visualPanel.addGeneration(neat.getGeneration());
             } catch (IOException e) {
                 e.printStackTrace();
             }
