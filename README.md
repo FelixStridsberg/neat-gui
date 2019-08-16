@@ -18,7 +18,7 @@ For example usage, see the [neat-race](https://github.com/FelixStridsberg/neat-r
 - Change all NEAT settings in real time.
 - Step, start and stop evaluation at any time.
 - Start and stop simulation at any time.
-- Save and load network from file. (Buggy in the NEAT project still.)
+- Save and load network from file.
 - Information about the current state of the network.
 - Graph with fitness over time.
 - Area chart with species proportions over time.
