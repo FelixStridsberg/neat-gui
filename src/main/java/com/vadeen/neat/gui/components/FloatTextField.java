@@ -1,12 +1,14 @@
 package com.vadeen.neat.gui.components;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
-public class FloatTextField extends JTextField {
+public class FloatTextField extends JTextField implements DocumentListener {
 
     private static class NumberDocument extends PlainDocument {
 
@@ -27,9 +29,15 @@ public class FloatTextField extends JTextField {
         }
     }
 
-    @Override
-    protected Document createDefaultModel() {
-        return new NumberDocument();
+    private FloatListener listener;
+
+    public FloatTextField() {
+        super();
+        getDocument().addDocumentListener(this);
+    }
+
+    public void setListener(FloatListener listener) {
+        this.listener = listener;
     }
 
     public float getValue() {
@@ -48,5 +56,25 @@ public class FloatTextField extends JTextField {
 
     public void setValue(float value) {
         setText(String.valueOf(value));
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        if (listener != null)
+            listener.onChange(getValue());
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        if (listener != null)
+            listener.onChange(getValue());
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {}
+
+    @Override
+    protected Document createDefaultModel() {
+        return new NumberDocument();
     }
 }

@@ -13,9 +13,13 @@ public class PercentSlider extends JPanel implements ChangeListener {
     private FloatListener listener;
 
     public PercentSlider(String label) {
+        this();
+        setBorder(BorderFactory.createTitledBorder(label));
+    }
+
+    public PercentSlider() {
         setLayout(new BorderLayout());
 
-        setBorder(BorderFactory.createTitledBorder(label));
 
         slider.setMajorTickSpacing(25);
         slider.setMinorTickSpacing(1);

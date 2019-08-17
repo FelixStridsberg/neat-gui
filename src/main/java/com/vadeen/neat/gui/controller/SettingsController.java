@@ -20,7 +20,7 @@ public class SettingsController {
     }
 
     public void openMutatorSettings() {
-        openDialog(new MutatorSettingsPanel(neat));
+        MutatorSettingsDialog.open(mainFrame, neat);
     }
 
     public void openGenerationSettings() {
