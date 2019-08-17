@@ -28,11 +28,11 @@ public class VisualizationRunner {
             while (run) {
                 long tickStart = System.nanoTime();
 
-                if (!visualizer.tick())
-                    break;
-
                 vp.repaint();
                 Toolkit.getDefaultToolkit().sync();
+
+                if (!visualizer.tick())
+                    break;
 
                 long tickTime = System.nanoTime() - tickStart;
                 long wait = (frameDelay - tickTime) / 1000000;
