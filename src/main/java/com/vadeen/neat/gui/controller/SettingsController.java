@@ -1,7 +1,7 @@
 package com.vadeen.neat.gui.controller;
 
 import com.vadeen.neat.Neat;
-import com.vadeen.neat.gui.panels.*;
+import com.vadeen.neat.gui.panels.settings.NetworkSettingsDialog;
 
 import javax.swing.*;
 
@@ -19,28 +19,7 @@ public class SettingsController {
         this.neat = neat;
     }
 
-    public void openMutatorSettings() {
-        MutatorSettingsDialog.open(mainFrame, neat);
-    }
-
-    public void openGenerationSettings() {
-        openDialog(new GenerationSettingsPanel(neat));
-    }
-
-    public void openGenomeSettings() {
-        openDialog(new GenomeSettingsPanel(neat));
-    }
-
-    public void openSpeciesSettings() {
-        openDialog(new SpeciesSettingsPanel(neat));
-    }
-
-    private void openDialog(SettingsDialog dialog) {
-        JDialog d = new JDialog(mainFrame, true);
-        dialog.setCloseListener(d::dispose);
-
-        d.add(dialog);
-        d.setSize(400, 500);
-        d.setVisible(true);
+    public void openNetworkSettings() {
+        NetworkSettingsDialog.open(mainFrame, neat);
     }
 }
