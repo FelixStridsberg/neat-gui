@@ -50,14 +50,8 @@ public class NeatGui implements ExitListener, NeatLoadListener, EvolveListener {
 
         initMenus();
 
-
-        // TODO move to form
-        JPanel wrapper = new JPanel();
-        wrapper.setLayout(new GridBagLayout());
-        wrapper.add(vp);
-
         ControlPanel controlPanel = new ControlPanel(evolutionController, visualizeController);
-        mainFrame.setContentPane(MainPanel.create(controlPanel, statsPanel, wrapper));
+        mainFrame.setContentPane(MainPanel.create(controlPanel, statsPanel, vp));
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainFrame.setSize(1200, 680);
     }
