@@ -61,4 +61,9 @@ public class StatsPanel extends JPanel {
     public Dimension getPreferredSize() {
         return new Dimension(400, getParent().getHeight());
     }
+
+    @Override
+    public Dimension getMaximumSize() {
+        return new Dimension(400, getParent().getHeight());
+    }
 }

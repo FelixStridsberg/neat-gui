@@ -11,6 +11,7 @@ import com.vadeen.neat.gui.listeners.NeatLoadListener;
 import com.vadeen.neat.gui.menus.FileMenu;
 import com.vadeen.neat.gui.menus.SettingsMenu;
 import com.vadeen.neat.gui.panels.ControlPanel;
+import com.vadeen.neat.gui.panels.MainPanel;
 import com.vadeen.neat.gui.panels.StatsPanel;
 import com.vadeen.neat.gui.visualization.VisualPanel;
 import com.vadeen.neat.gui.visualization.Visualizer;
@@ -27,8 +28,7 @@ public class NeatGui implements ExitListener, NeatLoadListener, EvolveListener {
     private final JFrame mainFrame = new JFrame("NEAT gui");
 
     private final JMenuBar menuBar = new JMenuBar();
-    private final JPanel mainPanel = new JPanel(new BorderLayout());
-    private final StatsPanel visualPanel = new StatsPanel();
+    private final StatsPanel statsPanel = new StatsPanel();
 
     private final FileController fileController;
     private final SettingsController settingsController;
@@ -49,7 +49,17 @@ public class NeatGui implements ExitListener, NeatLoadListener, EvolveListener {
         this.evolutionController.setEvolveListener(this);
 
         initMenus();
-        initPanels(vp);
+
+
+        // TODO move to form
+        JPanel wrapper = new JPanel();
+        wrapper.setLayout(new GridBagLayout());
+        wrapper.add(vp);
+
+        ControlPanel controlPanel = new ControlPanel(evolutionController, visualizeController);
+        mainFrame.setContentPane(MainPanel.create(controlPanel, statsPanel, wrapper));
+        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainFrame.setSize(1200, 680);
     }
 
     public void run() {
@@ -68,26 +78,9 @@ public class NeatGui implements ExitListener, NeatLoadListener, EvolveListener {
         mainFrame.setJMenuBar(menuBar);
     }
 
-    private void initPanels(VisualPanel vp) {
-        JPanel wrapper = new JPanel();
-        wrapper.setLayout(new GridBagLayout());
-        wrapper.add(vp);
-
-        ControlPanel controlPanel = new ControlPanel(evolutionController, visualizeController);
-
-        mainPanel.add(wrapper, BorderLayout.CENTER);
-        mainPanel.add(visualPanel, BorderLayout.LINE_END);
-        mainPanel.add(controlPanel, BorderLayout.PAGE_START);
-
-
-        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        mainFrame.setSize(1200, 680);
-        mainFrame.add(mainPanel);
-    }
-
     @Override
     public void onEvolve() {
-        visualPanel.addGeneration(neat.getGeneration());
+        statsPanel.addGeneration(neat.getGeneration());
     }
 
     @Override
@@ -99,7 +92,7 @@ public class NeatGui implements ExitListener, NeatLoadListener, EvolveListener {
         evolutionController.setNeat(neat);
         visualizeController.setNeat(neat);
 
-        visualPanel.addGeneration(neat.getGeneration());
+        statsPanel.addGeneration(neat.getGeneration());
     }
 
     @Override
