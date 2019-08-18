@@ -17,7 +17,6 @@ import com.vadeen.neat.gui.visualization.VisualPanel;
 import com.vadeen.neat.gui.visualization.Visualizer;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * NeatGui is a graphical user interface that takes the control of a Neat object and lets you push buttons and slide
@@ -50,7 +49,7 @@ public class NeatGui implements ExitListener, NeatLoadListener, EvolveListener {
 
         initMenus();
 
-        ControlPanel controlPanel = new ControlPanel(evolutionController, visualizeController);
+        JPanel controlPanel = ControlPanel.create(evolutionController, visualizeController);
         mainFrame.setContentPane(MainPanel.create(controlPanel, statsPanel, vp));
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainFrame.setSize(1200, 680);
