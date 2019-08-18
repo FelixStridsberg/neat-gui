@@ -36,9 +36,9 @@ public class NetworkSettingsDialog extends JDialog {
     }
 
     private void createUIComponents() {
-        mutatorPanel = new MutatorSettingsPanel(neat).getContentPane();
-        speciesPanel = new SpeciesSettingsPanel(neat).getContentPane();
-        genomePanel = new GenomeSettingsPanel(neat).getContentPane();
-        generationPanel = new GenerationSettingsPanel(neat).getContentPane();
+        mutatorPanel = MutatorSettingsPanel.create(neat);
+        speciesPanel = SpeciesSettingsPanel.create(neat);
+        genomePanel = GenomeSettingsPanel.create(neat);
+        generationPanel = GenerationSettingsPanel.create(neat);
     }
 }

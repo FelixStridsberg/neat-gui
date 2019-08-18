@@ -3,7 +3,6 @@ package com.vadeen.neat.gui.panels.settings;
 import com.vadeen.neat.Neat;
 import com.vadeen.neat.genome.GenomeComparator;
 import com.vadeen.neat.genome.GenomeFactory;
-import com.vadeen.neat.genome.GenomeMutator;
 import com.vadeen.neat.gui.components.FloatTextField;
 import com.vadeen.neat.gui.components.IntTextField;
 import com.vadeen.neat.gui.components.PercentSlider;
@@ -11,6 +10,7 @@ import com.vadeen.neat.gui.components.PercentSlider;
 import javax.swing.*;
 
 public class GenomeSettingsPanel {
+
     private JPanel contentPane;
     private PercentSlider connectionReexpressSlider;
     private PercentSlider mutationWhenCrossedSlider;
@@ -19,12 +19,12 @@ public class GenomeSettingsPanel {
     private FloatTextField diffWeightFactorField;
     private IntTextField diffNormalizeThresholdField;
 
-    public GenomeSettingsPanel(Neat neat) {
-        attach(neat.getGenomeFactory(), neat.getGenomeComparator());
+    public static JPanel create(Neat neat) {
+        return new GenomeSettingsPanel(neat).contentPane;
     }
 
-    public JPanel getContentPane() {
-        return contentPane;
+    public GenomeSettingsPanel(Neat neat) {
+        attach(neat.getGenomeFactory(), neat.getGenomeComparator());
     }
 
     private void attach(GenomeFactory genomeFactory, GenomeComparator genomeComparator) {

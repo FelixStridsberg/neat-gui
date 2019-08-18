@@ -16,12 +16,12 @@ public class MutatorSettingsPanel {
     private PercentSlider renewWeightMutationSlider;
     private FloatTextField weightPerturbingField;
 
-    public MutatorSettingsPanel(Neat neat) {
-        attach(neat.getMutator());
+    public static JPanel create(Neat neat) {
+        return new MutatorSettingsPanel(neat).contentPane;
     }
 
-    public JPanel getContentPane() {
-        return contentPane;
+    private MutatorSettingsPanel(Neat neat) {
+        attach(neat.getMutator());
     }
 
     private void attach(GenomeMutator mutator) {

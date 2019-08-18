@@ -9,13 +9,18 @@ import com.vadeen.neat.gui.components.PercentSlider;
 import javax.swing.*;
 
 public class GenerationSettingsPanel {
+
     private JPanel contentPane;
     private IntTextField populationSizeField;
     private IntTextField refocusThresholdField;
     private IntTextField refocusSpeciesCountField;
     private PercentSlider offspringByMutationSlider;
 
-    public GenerationSettingsPanel(Neat neat) {
+    public static JPanel create(Neat neat) {
+        return new GenerationSettingsPanel(neat).contentPane;
+    }
+
+    private GenerationSettingsPanel(Neat neat) {
         attach(neat.getGenerationFactory(), neat.getGenerationEvaluator());
     }
 
@@ -31,10 +36,6 @@ public class GenerationSettingsPanel {
 
         offspringByMutationSlider.setValue(generationFactory.getOffspringByMutation());
         offspringByMutationSlider.setListener(generationFactory::setOffspringByMutation);
-    }
-
-    public JPanel getContentPane() {
-        return contentPane;
     }
 
     private void createUIComponents() {
