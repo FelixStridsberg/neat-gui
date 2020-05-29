@@ -6,7 +6,6 @@ import com.vadeen.neat.genome.Genome;
 import com.vadeen.neat.genome.GenomeEvaluator;
 import com.vadeen.neat.gui.visualization.VisualPanel;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class NeatGuiTest {

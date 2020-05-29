@@ -16,12 +16,12 @@ public class NeatStats {
     /**
      * Species stats over time.
      */
-    public List<List<SpeciesInfo>> speciesOverTime = new ArrayList<>();
+    public final List<List<SpeciesInfo>> speciesOverTime = new ArrayList<>();
 
     /**
      * Best genome stats over time.
      */
-    public List<GenomeInfo> bestGenomeOverTime = new ArrayList<>();
+    public final List<GenomeInfo> bestGenomeOverTime = new ArrayList<>();
 
     public void addGeneration(Generation g) {
         addSpecies(g.getSpecies());

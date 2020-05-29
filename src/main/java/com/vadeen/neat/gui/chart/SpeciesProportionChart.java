@@ -49,12 +49,11 @@ public class SpeciesProportionChart extends JPanel {
 
             // Pain each species.
             int consumed = 0;
-            for (int i = 0; i < speciesInfos.size(); i++) {
-                SpeciesInfo si = speciesInfos.get(i);
+            for (SpeciesInfo si : speciesInfos) {
                 g2.setColor(Gui.colorOfId(si.getId()));
 
-                int x = (int)(((float)(total - consumed)/total)*getWidth());
-                int y = getHeight() - segmentHeight*sampleIndex - segmentHeight;
+                int x = (int) (((float) (total - consumed) / total) * getWidth());
+                int y = getHeight() - segmentHeight * sampleIndex - segmentHeight;
 
                 g2.fillRect(0, y, x, segmentHeight);
 

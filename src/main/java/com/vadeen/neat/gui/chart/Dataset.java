@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Dataset<T> {
 
-    private LinkedList<T> values = new LinkedList<>();
+    private final LinkedList<T> values = new LinkedList<>();
 
     public void add(T value) {
         // TODO fix in line chart, when going over this it's just a vertical line.

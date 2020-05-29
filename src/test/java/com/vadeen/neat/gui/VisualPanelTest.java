@@ -16,14 +16,14 @@ import java.util.List;
 
 public class VisualPanelTest {
 
-    private static JFrame frame = new JFrame("gui-test");
+    private static final JFrame frame = new JFrame("gui-test");
 
     public static void main(String[] args) throws IOException {
         String filename = NeatIO.class.getClassLoader().getResource("generations/generations.json").getFile();
         File file = new File(filename);
 
         ObjectMapper mapper = new ObjectMapper();
-        List<GenerationJson> generations = mapper.readValue(file, new TypeReference<List<GenerationJson>>(){});
+        List<GenerationJson> generations = mapper.readValue(file, new TypeReference<>() {});
 
         StatsPanel vp = new StatsPanel();
         GeneFactory geneFactory = new GeneFactory();

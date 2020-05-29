@@ -7,15 +7,10 @@ import java.awt.*;
 
 public class PercentSlider extends JPanel implements ChangeListener {
 
-    private JSlider slider = new JSlider();
-    private JLabel valueLabel = new JLabel();
+    private final JSlider slider = new JSlider();
+    private final JLabel valueLabel = new JLabel();
 
     private FloatListener listener;
-
-    public PercentSlider(String label) {
-        this();
-        setBorder(BorderFactory.createTitledBorder(label));
-    }
 
     public PercentSlider() {
         setLayout(new BorderLayout());

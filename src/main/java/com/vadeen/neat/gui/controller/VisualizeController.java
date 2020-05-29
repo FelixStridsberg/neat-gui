@@ -8,18 +8,13 @@ import com.vadeen.neat.gui.visualization.Visualizer;
 public class VisualizeController {
 
     private final Visualizer visualizer;
-    private final VisualPanel visualPanel;
     private final VisualizationRunner visualizationRunner;
+
     private Neat neat;
 
     public VisualizeController(Visualizer visualizer, VisualPanel visualPanel, Neat neat) {
         this.visualizer = visualizer;
-        this.visualPanel = visualPanel;
         this.visualizationRunner = new VisualizationRunner(visualizer, visualPanel);
-        this.neat = neat;
-    }
-
-    public void setNeat(Neat neat) {
         this.neat = neat;
     }
 
@@ -34,5 +29,9 @@ public class VisualizeController {
 
     public void stop() {
         visualizationRunner.stop();
+    }
+
+    public void setNeat(Neat neat) {
+        this.neat = neat;
     }
 }

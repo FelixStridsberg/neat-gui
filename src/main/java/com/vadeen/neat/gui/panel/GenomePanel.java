@@ -20,13 +20,13 @@ import java.util.Map;
  */
 public class GenomePanel extends JPanel {
 
-    private final static int PADDING = 20;
-    private final static int NODE_SIZE = 26;
-    private final static int CONNECTION_MARGIN = 14;
-
-    private Genome genome;
+    private static final int PADDING = 20;
+    private static final int NODE_SIZE = 26;
+    private static final int CONNECTION_MARGIN = 14;
 
     private final Map<Integer, Point> nodeCoordinates = new HashMap<>();
+
+    private Genome genome;
 
     public GenomePanel(Genome genome) {
         this.genome = genome;
@@ -74,7 +74,7 @@ public class GenomePanel extends JPanel {
     }
 
     private void drawNodeLevel(Graphics2D g, List<NodeGene> nodes, int y) {
-        if (nodes.size() == 0)
+        if (nodes.isEmpty())
             return;
 
         int width = getWidth() - PADDING * 2;
@@ -124,7 +124,7 @@ public class GenomePanel extends JPanel {
             if (in == null)
                 in = new Point(0, 0);
 
-            Point offset = calculateOffset(CONNECTION_MARGIN, out, in);
+            Point offset = calculateOffset(out, in);
 
             if (con.isExpressed())
                 g.setColor(new Color(0, 0, 0, 200));
@@ -135,11 +135,11 @@ public class GenomePanel extends JPanel {
         }
     }
 
-    private Point calculateOffset(int offset, Point p1, Point p2) {
-        double v = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+    private Point calculateOffset(Point p1, Point p2) {
+        double v = Math.atan2((double)p2.y - p1.y, (double)p2.x - p1.x);
 
-        int ox = (int)(offset * Math.cos(v));
-        int oy = (int)(offset * Math.sin(v));
+        int ox = (int)(CONNECTION_MARGIN * Math.cos(v));
+        int oy = (int)(CONNECTION_MARGIN * Math.sin(v));
 
         return new Point(ox, oy);
     }
@@ -175,7 +175,7 @@ public class GenomePanel extends JPanel {
                 }
             }
 
-            if (l.size() > 0)
+            if (!l.isEmpty())
                 hiddenLevels.add(l);
         }
 
