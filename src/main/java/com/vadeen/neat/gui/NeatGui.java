@@ -29,20 +29,18 @@ public class NeatGui implements ExitListener, NeatLoadListener, EvolveListener {
     private final JMenuBar menuBar = new JMenuBar();
     private final StatsPanel statsPanel = new StatsPanel();
 
+    private final SimulationContext context;
     private final FileController fileController;
     private final SettingsController settingsController;
     private final EvolutionController evolutionController;
     private final VisualizeController visualizeController;
 
-    private Neat neat;
-
     public NeatGui(Neat neat, Visualizer visualizer, VisualPanel vp) {
-        this.neat = neat;
-
-        this.fileController = new FileController(mainFrame, neat);
-        this.settingsController = new SettingsController(mainFrame, neat);
-        this.visualizeController = new VisualizeController(visualizer, vp, neat);
-        this.evolutionController = new EvolutionController(neat);
+        this.context = new SimulationContext(neat);
+        this.fileController = new FileController(mainFrame, context);
+        this.settingsController = new SettingsController(mainFrame, context);
+        this.visualizeController = new VisualizeController(visualizer, vp, context);
+        this.evolutionController = new EvolutionController(context);
 
         this.fileController.setLoadListener(this);
         this.evolutionController.setEvolveListener(this);
@@ -73,17 +71,12 @@ public class NeatGui implements ExitListener, NeatLoadListener, EvolveListener {
 
     @Override
     public void onEvolve() {
-        statsPanel.addGeneration(neat.getGeneration());
+        statsPanel.addGeneration(context.getNeat().getGeneration());
     }
 
     @Override
     public void onLoad(Neat neat) {
-        this.neat = neat;
-
-        fileController.setNeat(neat);
-        settingsController.setNeat(neat);
-        evolutionController.setNeat(neat);
-        visualizeController.setNeat(neat);
+        context.setNeat(neat);
 
         statsPanel.addGeneration(neat.getGeneration());
     }

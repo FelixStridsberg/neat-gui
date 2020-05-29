@@ -2,20 +2,18 @@ package com.vadeen.neat.gui.controller;
 
 import com.vadeen.neat.Neat;
 import com.vadeen.neat.gui.AutoEvolver;
+import com.vadeen.neat.gui.SimulationContext;
 import com.vadeen.neat.gui.listener.EvolveListener;
 
 public class EvolutionController {
 
-    private Neat neat;
+    private final SimulationContext context;
+
     private EvolveListener evolveListener;
     private AutoEvolver autoEvolver;
 
-    public EvolutionController(Neat neat) {
-        this.neat = neat;
-    }
-
-    public void setNeat(Neat neat) {
-        this.neat = neat;
+    public EvolutionController(SimulationContext context) {
+        this.context = context;
     }
 
     public void setEvolveListener(EvolveListener evolveListener) {
@@ -23,7 +21,7 @@ public class EvolutionController {
     }
 
     public void evolve() {
-        neat.evolve();
+        context.getNeat().evolve();
 
         if (evolveListener != null)
             evolveListener.onEvolve();
@@ -34,7 +32,7 @@ public class EvolutionController {
             stop();
         }
 
-        autoEvolver = new AutoEvolver(neat);
+        autoEvolver = new AutoEvolver(context.getNeat());
         autoEvolver.setEvolveListener(evolveListener);
         autoEvolver.start();
     }
