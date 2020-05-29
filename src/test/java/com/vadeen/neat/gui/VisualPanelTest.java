@@ -3,7 +3,7 @@ package com.vadeen.neat.gui;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vadeen.neat.gene.GeneFactory;
-import com.vadeen.neat.gui.panels.StatsPanel;
+import com.vadeen.neat.gui.panel.StatsPanel;
 import com.vadeen.neat.io.NeatIO;
 import com.vadeen.neat.io.json.generation.GenerationJson;
 

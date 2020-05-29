@@ -1,7 +1,7 @@
 package com.vadeen.neat.gui.controller;
 
 import com.vadeen.neat.Neat;
-import com.vadeen.neat.gui.listeners.NeatLoadListener;
+import com.vadeen.neat.gui.listener.NeatLoadListener;
 import com.vadeen.neat.io.NeatIO;
 
 import javax.swing.*;

@@ -1,7 +1,7 @@
 package com.vadeen.neat.gui.controller;
 
 import com.vadeen.neat.Neat;
-import com.vadeen.neat.gui.panels.settings.NetworkSettingsDialog;
+import com.vadeen.neat.gui.panel.settings.NetworkSettingsDialog;
 
 import javax.swing.*;
 
